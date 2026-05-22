@@ -295,7 +295,7 @@ $$
 
 ### 6.1 项目结构
 
-```
+```text
 chladni/
 ├── SConstruct                  # C++ 构建脚本
 ├── godot-cpp/                  # Godot C++ 绑定（git submodule）
@@ -307,20 +307,31 @@ chladni/
 ├── tmp/                        # 临时文件
 └── project/                    # Godot 项目
     ├── project.godot
-    ├── control.tscn
-    ├── gdextension/
-    │   ├── bin/                # 编译产物 (.dll)
-    │   └── particle_solver.gdextension
+    ├── demo.tscn               # 主场景
     ├── scripts/
-    │   └── control.gd
-    ├── shaders/
+    │   └── demo_controller.gd  # 场景控制脚本
+    ├── scenes/                 # UI 组件场景
+    │   ├── audio_ctrl.gd / .tscn
+    │   ├── amplitude_container.gd / .tscn
+    │   └── param_controller.gd / .tscn
+    ├── addons/
+    │   └── chladni_pattern/    # GDExtension 插件
+    │       ├── chladni.gdextension
+    │       ├── plugin.cfg / plugin.gd
+    │       ├── bin/            # 编译产物 (.dll / .wasm)
+    │       ├── scenes/
+    │       │   └── chladni_view.tscn
+    │       └── scripts/
+    │           ├── chladni_view.gd       # ChladniView 外观类
+    │           ├── compute_component.gd  # ComputeComponent
+    │           └── particle_view.gd      # ParticleView
     ├── ogg/
-    └── addons/
+    └── img/
 ```
 
 ### 6.2 系统流程
 
-```
+```text
 AudioStreamPlayer → SpectrumAnalyzer → band_mags[]
     → 找到主导频段 → 查 beam 模表 → (i, j, sign) 当前模式
     → GDScript 调用 solver.update() → C++ 粒子物理热循环
@@ -350,7 +361,7 @@ scons platform=windows target=template_debug -j8   # 编辑器调试
 scons platform=windows target=template_release -j8  # 发布
 ```
 
-产物输出至 `project/gdextension/bin/`。
+产物输出至 `project/addons/chladni_pattern/bin/`。
 
 ### 6.6 性能
 

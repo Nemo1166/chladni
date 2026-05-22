@@ -6,11 +6,10 @@
 | --- | --- | --- | --- | --- |
 | `particle_count` | int | 4096 | — | 粒子总数。越多图案越密集，CPU 负载越高 |
 | `step_scale` | float | 0.018 | 0.001 ~ 0.1 | 随机跳跃幅度。调小粒子更快稳定在节线上 |
-| `drift_speed` | float | 0.35 | 0.01 ~ 2.0 | 向节线漂移的速度。调大加快聚集 |
+| `drift_speed` | float | 0.05 | 0.01 ~ 1.0 | 向节线漂移的速度。调大加快聚集 |
 | `particle_size` | int | 5 | 1 ~ 12 | 粒子显示像素尺寸 |
-| `respawn_rate` | float | 0.025 | 0 ~ 0.2 | 每帧随机重生比例。0 = 稳定后不变 |
+| `respawn_rate` | float | 0.005 | 0 ~ 0.2 | 每帧随机重生比例。0 = 稳定后不变 |
 | `particle_color` | Color | (0.5, 0.8, 1.0, 0.8) | — | 粒子颜色 (RGBA) |
-| `background_color` | Color | (0.02, 0.02, 0.06, 1.0) | — | 背景颜色 (RGBA) |
 
 ### 快速收敛设置
 
@@ -26,9 +25,9 @@
 
 | 变量 | 类型 | 默认值 | 范围 | 说明 |
 | --- | --- | --- | --- | --- |
-| `band_count` | int | 12 | 2 ~ 64 | 频段数量。每个频段对应一个本征模 |
+| `band_count` | int | 48 | 4 ~ 64 | 频段数量。每个频段对应一个本征模 |
 | `freq_min` | float | 20.0 | — | 频谱分析最低频率 (Hz) |
-| `freq_max` | float | 2000.0 | — | 频谱分析最高频率 (Hz) |
+| `freq_max` | float | 8000.0 | — | 频谱分析最高频率 (Hz) |
 
 频段采用对数间隔划分，匹配人耳听觉特性。
 
@@ -38,8 +37,8 @@
 
 | 变量 | 类型 | 默认值 | 范围 | 说明 |
 | --- | --- | --- | --- | --- |
-| `mode_max_order` | int | 8 | 1 ~ 12 | 梁模阶数上限。越大可选模式越多，图案越复杂 |
-| `zoom` | float | 1.0 | 0.5 ~ 4.0 | 坐标缩放。>1 更多节线，<1 更少 |
+| `mode_max_order` | int | 9 | 1 ~ 12 | 梁模阶数上限。越大可选模式越多，图案越复杂 |
+| `zoom` | float | 0.5 | 0.5 ~ 2.0 | 坐标缩放。>1 显示更多节线，<1 显示更少 |
 
 梁模表自动生成：枚举所有 $(i,j)$ 对（$0 \le i,j <$ `mode_max_order`，$i \neq j$ 时跳过退化组合），按 $\lambda_i^2 + \lambda_j^2$ 排序，均匀采样 `band_count` 个模式。
 
@@ -66,14 +65,13 @@ $$
 
 ## 实现架构
 
-```
-GDScript（控制逻辑）
-  ├─ 音频频谱分析
-  ├─ 频段 → 本征模表查表
-  ├─ C++ solver.update()        ← 热循环（~1.2ms vs 原 15ms）
-  └─ Image 渲染粒子
+```text
+ChladniView (Control, 外观类)
+  ├─ ComputeComponent (Node)    — 音频频谱分析、频段→本征模查表
+  ├─ ParticleView (TextureRect) — Image → ImageTexture 粒子渲染
+  └─ ParticleSolver (RefCounted, C++ GDExtension) — 热循环
 
-C++ GDExtension（热循环）
+C++ 热循环 (~1.2ms vs GDScript ~15ms, ~12× 加速)
   └─ ParticleSolver::update()
        └─ beam_val_deriv() × 4  ← 合并值和导数
 ```
@@ -85,4 +83,4 @@ C++ GDExtension（热循环）
 | `ModeLabel`（左上） | 当前本征模 `i=X  j=Y  sign=±1` |
 | `FreqLabel`（左上） | 主导频率、λ_i²+λ_j²、zoom |
 | `ComputeCostLabel`（左上） | 每帧总计算耗时 (ms) |
-| `AmplitudeContainer`（右侧） | 频段振幅 ProgressBar，金色高亮主导频段 |
+| `AmplitudeViewer`（左侧） | 频段振幅 ProgressBar，金色高亮主导频段 |
