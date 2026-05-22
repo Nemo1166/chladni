@@ -33,6 +33,18 @@ Uses free-edge beam eigenfunctions (Rayleigh-Ritz) to model square plate vibrati
 
 [Read more](docs/beam_function_theory.md)
 
+## Limitations / 已知限制
+
+- Mobile renderer only (you can change to GLES3/Forward+ on your own)
+- AudioEffect (e.g. AudioEffectSpectrumAnalyzer) not supported in Web export
+- No audio input / microphone support yet
+- Particles reset on mode switch (no smooth transition)
+
+- Mobile 渲染器专用（你可以自行切换到 GLES3/Forward+）
+- Web 导出部分音频格式不可用（AudioEffect 不受支持）
+- 尚未支持麦克风实时输入
+- 模式切换时粒子重置（无平滑过渡）
+
 ## Build Requirements / 构建依赖
 
 - Godot 4.6+
