@@ -1,0 +1,9 @@
+[configuration]
+entry_symbol = "chladni_init"
+compatibility_minimum = "4.2"
+
+[libraries]
+windows.debug.x86_64   = "res://addons/chladni_pattern/bin/libchladni.windows.debug.x86_64.dll"
+windows.release.x86_64 = "res://addons/chladni_pattern/bin/libchladni.windows.release.x86_64.dll"
+web.debug.wasm32       = "res://addons/chladni_pattern/bin/libchladni.web.debug.wasm32.wasm"
+web.release.wasm32     = "res://addons/chladni_pattern/bin/libchladni.web.release.wasm32.wasm"

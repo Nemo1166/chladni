@@ -1,0 +1,35 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/param_controller.gd" id="1_sbqgu"]
+
+[node name="ParamCtrl" type="MarginContainer" unique_id=1345075727]
+offset_right = 320.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+script = ExtResource("1_sbqgu")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=489102315]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=754015681]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "PARAM"
+vertical_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="HBoxContainer" unique_id=961293829]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 2.0
+
+[node name="SpinBox" type="SpinBox" parent="HBoxContainer" unique_id=1137521781]
+unique_name_in_owner = true
+layout_mode = 2

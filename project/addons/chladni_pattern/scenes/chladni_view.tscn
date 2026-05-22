@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://ewi66drslipu"]
+
+[ext_resource type="Script" uid="uid://bque4am738tke" path="res://addons/chladni_pattern/scripts/chladni_view.gd" id="1"]
+[ext_resource type="Script" uid="uid://c03kqh4sdwmmx" path="res://addons/chladni_pattern/scripts/particle_view.gd" id="2"]
+[ext_resource type="Script" uid="uid://bd37vv1iwajtr" path="res://addons/chladni_pattern/scripts/compute_component.gd" id="3"]
+
+[node name="MarginContainer" type="MarginContainer" unique_id=386082345]
+offset_right = 392.0
+offset_bottom = 992.0
+script = ExtResource("1")
+
+[node name="ComputeComponent" type="Node" parent="." unique_id=1844113254]
+unique_name_in_owner = true
+script = ExtResource("3")
+
+[node name="ParticleView" type="TextureRect" parent="." unique_id=1584524463]
+unique_name_in_owner = true
+layout_mode = 2
+script = ExtResource("2")

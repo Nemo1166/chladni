@@ -1,0 +1,71 @@
+# Godot auto generated files
+*.gen.*
+.godot/
+
+# Ignore library files but not the gdextension file
+project/addons/chladni_pattern/bin/*
+!project/addons/chladni_pattern/bin/android
+project/addons/chladni_pattern/bin/android/*
+!project/addons/chladni_pattern/bin/android/.gitkeep
+!project/addons/chladni_pattern/bin/linux
+project/addons/chladni_pattern/bin/linux/*
+!project/addons/chladni_pattern/bin/linux/.gitkeep
+!project/addons/chladni_pattern/bin/macos
+project/addons/chladni_pattern/bin/macos/*
+!project/addons/chladni_pattern/bin/macos/.gitkeep
+!project/addons/chladni_pattern/bin/windows
+project/addons/chladni_pattern/bin/windows/*
+!project/addons/chladni_pattern/bin/windows/.gitkeep
+!project/addons/chladni_pattern/bin/*.gdextension
+.sconsign*.dblite
+
+# Ignore custom.py
+custom.py
+
+# Ignore generated compile_commands.json
+compile_commands.json
+.sconsign*.dblite
+
+# Ignore files generated for documentation
+/src/gen
+
+# Binaries
+*.o
+*.os
+*.so
+*.obj
+*.bc
+*.pyc
+*.dblite
+*.pdb
+*.lib
+*.config
+*.creator
+*.creator.user
+*.files
+*.includes
+*.idb
+*.exp
+
+# Other stuff
+*.log
+
+# VSCode
+.vscode/*
+!.vscode/extensions.json
+.DS_Store
+.cache/
+
+# Jetbrains
+.idea/
+
+# Cmake
+cmake-build*
+CMakeUserPresets.json
+
+# Misc
+tmp/
+.claude/
+.mcp.json
+project/build/
+project/addons/godot_mcp/

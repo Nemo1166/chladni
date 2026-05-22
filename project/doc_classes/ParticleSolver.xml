@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="ParticleSolver" inherits="RefCounted" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/godotengine/godot/master/doc/class.xsd">
+	<brief_description>
+		GDExtension particle solver for real-time Chladni pattern simulation.
+	</brief_description>
+	<description>
+		Simulates particle motion on a square Chladni plate driven by a beam eigenmode superposition:
+
+		[code]ψ(x,y) = X_i(x)·X_j(y) + sign · X_j(x)·X_i(y)[/code]
+
+		where [code]X_k[/code] are free-edge beam eigenfunctions (symmetric for odd [i]k[/i], antisymmetric for even [i]k[/i]).
+		Each particle performs a random walk whose step size scales with the local vibration amplitude [code]|ψ|[/code],
+		plus a drift toward nodal lines (where [code]ψ = 0[/code]) weighted by [param drift_speed].
+
+		Particles that wander outside [0,1]² are reflected back (specular reflection). A fraction [param respawn_rate] of particles
+		are randomly repositioned each frame to seed new nodal lines.
+
+		Typical usage (see [code]control.gd[/code]):
+		[codeblock]
+		var solver = ParticleSolver.new()
+		solver.resize(particle_count)
+		solver.set_beam_lam(beam_eigenvalues)
+		solver.set_beam_coeff(beam_coefficients)
+		solver.set_zoom(zoom)
+		# ... each frame:
+		solver.update(delta, b_i, b_j, b_sign, step_scale, drift_speed, respawn_rate)
+		var positions = solver.get_positions()
+		[/codeblock]
+	</description>
+	<tutorials>
+	</tutorials>
+	<methods>
+		<method name="resize">
+			<return type="void" />
+			<param index="0" name="count" type="int" />
+			<description>
+				Resizes the particle buffer to [param count] and randomizes all positions in [code][0,1]²[/code].
+				Call this once during initialization, or whenever [param count] changes.
+			</description>
+		</method>
+		<method name="set_beam_lam">
+			<return type="void" />
+			<param index="0" name="arr" type="PackedFloat32Array" />
+			<description>
+				Sets the beam eigenvalue table [code]λ_k[/code] for [i]k = 0, 1, …, K-1[/i].
+				These are the roots of the free-edge beam characteristic equations solved via Newton's method.
+				The array is indexed by beam order in [method update]; pass the same table computed on the GDScript side.
+			</description>
+		</method>
+		<method name="set_beam_coeff">
+			<return type="void" />
+			<param index="0" name="arr" type="PackedFloat32Array" />
+			<description>
+				Sets the beam coefficient table [code]C_k[/code] for [i]k = 0, 1, …, K-1[/i].
+				These normalize the beam functions so that [code]X_k(0.5) ≈ 1[/code]:
+
+				- Odd [i]k[/i] (symmetric): [code]C_k = cos(λ_k/2) / cosh(λ_k/2)[/code]
+				- Even [i]k[/i] (antisymmetric): [code]C_k = sin(λ_k/2) / sinh(λ_k/2)[/code]
+			</description>
+		</method>
+		<method name="set_zoom">
+			<return type="void" />
+			<param index="0" name="z" type="float" />
+			<description>
+				Sets the zoom factor applied to the particle coordinate space.
+				Particle positions in [code][0,1]²[/code] are mapped to [code]x·z - z/2[/code] before evaluating the beam functions,
+				so [param z] controls how many eigenmode wavelengths are visible. Larger values reveal higher-order detail.
+			</description>
+		</method>
+		<method name="get_zoom" qualifiers="const">
+			<return type="float" />
+			<description>
+				Returns the current zoom factor. See [method set_zoom].
+			</description>
+		</method>
+		<method name="get_positions" qualifiers="const">
+			<return type="PackedVector2Array" />
+			<description>
+				Returns the current particle position buffer ([code]PackedVector2Array[/code] of length [code]particle_count[/code]).
+				Each component is in [code][0,1][/code]. This is intended to be consumed by a rendering node (e.g. an [Image]-based [TextureRect])
+				each frame.
+			</description>
+		</method>
+		<method name="update">
+			<return type="PackedVector2Array" />
+			<param index="0" name="delta" type="float" />
+			<param index="1" name="b_i" type="int" />
+			<param index="2" name="b_j" type="int" />
+			<param index="3" name="b_sign" type="int" />
+			<param index="4" name="step_scale" type="float" />
+			<param index="5" name="drift_speed" type="float" />
+			<param index="6" name="respawn_rate" type="float" />
+			<description>
+				Advances the simulation by one time step.
+
+				Each particle computes the local vibration amplitude [code]vib = |ψ(x,y)|[/code] and:
+				- Takes a random step proportional to [code]vib · step_scale[/code] (Brownian exploration).
+				- If [code]vib > 0.001[/code], drifts toward the nearest nodal line using the signed gradient of [code]ψ[/code],
+				  weighted by [code]drift_speed · delta · vib[/code]. The sign of [code]ψ[/code] determines drift direction.
+
+				[param b_i] and [param b_j] select the beam eigenfunction orders used in the superposition.
+				[param b_sign] must be [code]+1[/code] or [code]-1[/code]; it controls whether the cross terms add or subtract.
+				[param step_scale] scales the random walk step size. Typical range: [code]0.01 – 0.05[/code].
+				[param drift_speed] controls how strongly particles are pulled to nodal lines. Typical range: [code]0.1 – 1.0[/code].
+				[param respawn_rate] is the fraction of particles randomly repositioned per frame. Typical range: [code]0.0 – 0.05[/code].
+
+				Returns the updated particle position buffer (same array as [method get_positions]).
+			</description>
+		</method>
+	</methods>
+	<members>
+	</members>
+	<signals>
+	</signals>
+	<constants>
+	</constants>
+</class>

@@ -1,0 +1,291 @@
+[gd_scene format=3 uid="uid://sslmdptxa8d7"]
+
+[ext_resource type="Script" uid="uid://cu83us7gijd12" path="res://scripts/demo_controller.gd" id="1_ctl"]
+[ext_resource type="AudioStream" uid="uid://d3cemjh18mmuw" path="res://ogg/Sci-Fi 5.ogg" id="2_ogg"]
+[ext_resource type="Texture2D" uid="uid://cflepky8j0we1" path="res://img/ENDFIELD_SHARE_1774379141.png" id="3_img"]
+[ext_resource type="PackedScene" uid="uid://ewi66drslipu" path="res://addons/chladni_pattern/scenes/chladni_view.tscn" id="4_cv"]
+[ext_resource type="PackedScene" path="res://scenes/amplitude_container.tscn" id="5_amp"]
+[ext_resource type="SystemFont" uid="uid://deaglhanjt01t" path="res://res/system_font_mono.tres" id="6_fnt"]
+[ext_resource type="PackedScene" path="res://scenes/param_controller.tscn" id="7_pc"]
+[ext_resource type="PackedScene" uid="uid://cfx7i6400w2oh" path="res://scenes/audio_ctrl.tscn" id="8_ac"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_qtu10"]
+font = ExtResource("6_fnt")
+font_size = 28
+font_color = Color(0.9, 0.9, 1, 0.9)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ee4bf"]
+font_size = 18
+font_color = Color(0.5, 0.6, 0.8, 0.7)
+
+[sub_resource type="LabelSettings" id="LabelSettings_kbped"]
+line_spacing = 2.0
+font_color = Color(0.41568628, 1, 0.4862745, 0.5019608)
+
+[node name="Demo" type="Control" unique_id=1692273782]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ctl")
+
+[node name="FileDialog" type="FileDialog" parent="." unique_id=423885461]
+oversampling_override = 1.0
+title = "Open a File"
+initial_position = 2
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.ogg;audio/ogg", "*.wav;audio/wav", "*.mp3;audio/mpeg")
+use_native_dialog = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1950512042]
+stream = ExtResource("2_ogg")
+volume_db = -4.0
+autoplay = true
+
+[node name="Background" type="TextureRect" parent="." unique_id=1089402456]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_img")
+expand_mode = 1
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1264183031]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.2509804)
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=987288734]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 300.0
+offset_right = -300.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1067294846]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="ChladniView" parent="PanelContainer/MarginContainer" unique_id=1334011375 instance=ExtResource("4_cv")]
+unique_name_in_owner = true
+layout_mode = 2
+particle_count = 10240
+step_scale = 0.025
+drift_speed = 0.08
+respawn_rate = 0.015
+mode_max_order = 8
+particle_color = Color(0.85111636, 0.9375036, 0.99999994, 0.8)
+
+[node name="UI" type="Control" parent="." unique_id=906198684]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="InfoPanel" type="PanelContainer" parent="UI" unique_id=719747520]
+layout_mode = 1
+offset_left = 24.0
+offset_top = 16.0
+offset_right = 192.0
+offset_bottom = 82.0
+metadata/_edit_group_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/InfoPanel" unique_id=973893364]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/InfoPanel/MarginContainer" unique_id=456837480]
+layout_mode = 2
+
+[node name="ModeLabel" type="Label" parent="UI/InfoPanel/MarginContainer/VBoxContainer" unique_id=902195102]
+unique_name_in_owner = true
+layout_mode = 2
+text = "n=2.0 m=1.0"
+label_settings = SubResource("LabelSettings_qtu10")
+
+[node name="FreqLabel" type="Label" parent="UI/InfoPanel/MarginContainer/VBoxContainer" unique_id=585853664]
+unique_name_in_owner = true
+layout_mode = 2
+text = "-- Hz"
+label_settings = SubResource("LabelSettings_ee4bf")
+
+[node name="ComputeCostLabel" type="Label" parent="UI/InfoPanel/MarginContainer/VBoxContainer" unique_id=1960944992]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Compute: %.2f ms
+Render: %.2f ms"
+label_settings = SubResource("LabelSettings_kbped")
+
+[node name="AmplitudeViewer" parent="UI" unique_id=1010884585 instance=ExtResource("5_amp")]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 192.0
+offset_right = 224.0
+offset_bottom = -104.0
+grow_vertical = 2
+
+[node name="ParamPanel" type="ScrollContainer" parent="UI" unique_id=1651552562]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -288.0
+offset_top = 64.0
+offset_right = -32.0
+offset_bottom = -264.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 0
+horizontal_scroll_mode = 0
+
+[node name="ParamList" type="VBoxContainer" parent="UI/ParamPanel" unique_id=1295214279]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ParamStepScale" parent="UI/ParamPanel/ParamList" unique_id=1861141486 node_paths=PackedStringArray("target") instance=ExtResource("7_pc")]
+layout_mode = 2
+label = "随机步伐"
+variable = &"step_scale"
+target = NodePath("../../../../PanelContainer/MarginContainer/ChladniView")
+value_min = 0.001
+value_max = 0.1
+value_step = 0.001
+value_value = 0.016
+
+[node name="ParamDriftSpeed" parent="UI/ParamPanel/ParamList" unique_id=1151376287 node_paths=PackedStringArray("target") instance=ExtResource("7_pc")]
+layout_mode = 2
+label = "漂移速度"
+variable = &"drift_speed"
+target = NodePath("../../../../PanelContainer/MarginContainer/ChladniView")
+value_min = 0.01
+value_value = 0.08
+
+[node name="ParamParticleSize" parent="UI/ParamPanel/ParamList" unique_id=422545614 node_paths=PackedStringArray("target") instance=ExtResource("7_pc")]
+layout_mode = 2
+label = "粒子大小"
+variable = &"particle_size"
+target = NodePath("../../../../PanelContainer/MarginContainer/ChladniView")
+value_min = 1.0
+value_max = 12.0
+value_step = 1.0
+value_value = 5.0
+use_integer = true
+
+[node name="ParamRespawnRate" parent="UI/ParamPanel/ParamList" unique_id=175364063 node_paths=PackedStringArray("target") instance=ExtResource("7_pc")]
+layout_mode = 2
+label = "生成速率"
+variable = &"respawn_rate"
+target = NodePath("../../../../PanelContainer/MarginContainer/ChladniView")
+value_max = 0.2
+value_step = 0.005
+value_value = 0.005
+
+[node name="ParamZoom" parent="UI/ParamPanel/ParamList" unique_id=1212983700 node_paths=PackedStringArray("target") instance=ExtResource("7_pc")]
+layout_mode = 2
+label = "缩放"
+variable = &"zoom"
+target = NodePath("../../../../PanelContainer/MarginContainer/ChladniView")
+value_min = 0.5
+value_max = 2.0
+value_step = 0.1
+
+[node name="ParamBandCount" parent="UI/ParamPanel/ParamList" unique_id=1274005544 node_paths=PackedStringArray("target") instance=ExtResource("7_pc")]
+layout_mode = 2
+label = "频段数"
+variable = &"band_count"
+target = NodePath("../../../../PanelContainer/MarginContainer/ChladniView")
+value_min = 4.0
+value_max = 64.0
+value_step = 4.0
+value_value = 48.0
+use_integer = true
+
+[node name="ParamFreqMin" parent="UI/ParamPanel/ParamList" unique_id=28237436 node_paths=PackedStringArray("target") instance=ExtResource("7_pc")]
+layout_mode = 2
+label = "最低频率"
+variable = &"freq_min"
+target = NodePath("../../../../PanelContainer/MarginContainer/ChladniView")
+value_min = 10.0
+value_max = 500.0
+value_step = 1.0
+value_value = 20.0
+
+[node name="ParamFreqMax" parent="UI/ParamPanel/ParamList" unique_id=422296544 node_paths=PackedStringArray("target") instance=ExtResource("7_pc")]
+layout_mode = 2
+label = "最高频率"
+variable = &"freq_max"
+target = NodePath("../../../../PanelContainer/MarginContainer/ChladniView")
+value_min = 500.0
+value_max = 10000.0
+value_step = 10.0
+value_value = 6000.0
+
+[node name="ParamModeOrder" parent="UI/ParamPanel/ParamList" unique_id=869689662 node_paths=PackedStringArray("target") instance=ExtResource("7_pc")]
+layout_mode = 2
+label = "模阶上限"
+variable = &"mode_max_order"
+target = NodePath("../../../../PanelContainer/MarginContainer/ChladniView")
+value_min = 1.0
+value_max = 12.0
+value_step = 1.0
+value_value = 8.0
+use_integer = true
+
+[node name="AudioCtrl" parent="UI" unique_id=1270293574 node_paths=PackedStringArray("target") instance=ExtResource("8_ac")]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -224.0
+offset_top = -104.0
+offset_right = 224.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+target = NodePath("../../AudioStreamPlayer")
+
+[node name="OpenButton" type="Button" parent="UI" unique_id=1444321457]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -96.0
+offset_top = -72.0
+offset_right = -24.0
+offset_bottom = -24.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 32
+text = "📂"
+
+[connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]
+[connection signal="pressed" from="UI/OpenButton" to="FileDialog" method="popup_file_dialog"]

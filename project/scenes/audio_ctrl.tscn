@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://cfx7i6400w2oh"]
+
+[ext_resource type="SystemFont" uid="uid://deaglhanjt01t" path="res://res/system_font_mono.tres" id="1_cfvoh"]
+[ext_resource type="Script" uid="uid://bgsxsq7a8ffaq" path="res://scenes/audio_ctrl.gd" id="1_uivfo"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_uivfo"]
+font = ExtResource("1_cfvoh")
+
+[node name="AudioCtrl" type="PanelContainer" unique_id=1809581041]
+offset_right = 320.0
+offset_bottom = 64.0
+script = ExtResource("1_uivfo")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=106829456]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=685302427]
+layout_mode = 2
+
+[node name="Progress" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=896191810]
+layout_mode = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/Progress" unique_id=469685345]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+show_percentage = false
+
+[node name="PlayTime" type="Label" parent="MarginContainer/VBoxContainer/Progress" unique_id=192680227]
+unique_name_in_owner = true
+layout_mode = 2
+text = "XX:xx/XX:xx"
+label_settings = SubResource("LabelSettings_uivfo")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=2100078510]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=2142164940]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PlayPulse" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=2006236058]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "▶︎❚❚"
+
+[node name="Reset" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1814768009]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "↺"
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=2018701384]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/PlayPulse" to="." method="_on_play_pulse_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/Reset" to="." method="_on_reset_pressed"]
