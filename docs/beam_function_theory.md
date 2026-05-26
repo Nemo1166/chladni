@@ -19,12 +19,12 @@ $$
 
 ### 1.2 自由边界条件
 
-板边缘（$x = \pm L/2$ 或 $y = \pm L/2$）处：
+板边缘（ $x = \pm L/2$ 或 $y = \pm L/2$）处：
 
-- 弯矩为零：$\displaystyle \frac{\partial^2 \Psi}{\partial n^2} + \nu \frac{\partial^2 \Psi}{\partial s^2} = 0$
-- 等效剪力为零：$\displaystyle \frac{\partial^3 \Psi}{\partial n^3} + (2 - \nu) \frac{\partial^3 \Psi}{\partial n \partial s^2} = 0$
+- 弯矩为零: $\displaystyle \frac{\partial^2 \Psi}{\partial n^2} + \nu \frac{\partial^2 \Psi}{\partial s^2} = 0$
+- 等效剪力为零: $\displaystyle \frac{\partial^3 \Psi}{\partial n^3} + (2 - \nu) \frac{\partial^3 \Psi}{\partial n \partial s^2} = 0$
 
-其中 $n$ 为法向，$s$ 为切向。
+其中 $n$ 为法向， $s$ 为切向。
 
 ### 1.3 Rayleigh-Ritz 近似
 
@@ -34,8 +34,8 @@ $$
 \Psi_{ij}(x,y) = X_i(x) \cdot X_j(y) \pm X_j(x) \cdot X_i(y)
 $$
 
-- $X_i$ 为自由-自由梁的第 $i$ 阶弯曲模（$i = 1, 2, 3, \dots$）
-- $+$ 号：对称叠加；$-$ 号：反对称叠加
+- $X_i$ 为自由-自由梁的第 $i$ 阶弯曲模（ $i = 1, 2, 3, \dots$ ）
+- $+$ 号：对称叠加； $-$ 号：反对称叠加
 
 ---
 
@@ -51,7 +51,7 @@ $$
 
 坐标归一化至 $[-L/2, L/2]$，取 $L = 1$，即 $x \in [-0.5, 0.5]$。
 
-### 2.2 对称模（$i = 1, 3, 5, \dots$，即 k 为偶数索引）
+### 2.2 对称模（ $i = 1, 3, 5, \dots$ ，即 k 为偶数索引）
 
 对称模为偶函数，$B = D = 0$：
 
@@ -61,13 +61,13 @@ $$
 
 **边界条件**（在 $x = 0.5$ 处）：
 
-弯矩为零：$X_k''(0.5) = -A\lambda_k^2 \cos(\frac{\lambda_k}{2}) + C\lambda_k^2 \cosh(\frac{\lambda_k}{2}) = 0$
+弯矩为零： $X_k''(0.5) = -A\lambda_k^2 \cos(\frac{\lambda_k}{2}) + C\lambda_k^2 \cosh(\frac{\lambda_k}{2}) = 0$
 
 $$
 \Rightarrow \quad C = A \cdot \frac{\cos(\lambda_k / 2)}{\cosh(\lambda_k / 2)}
 $$
 
-剪力为零：$X_k'''(0.5) = A\lambda_k^3 \sin(\frac{\lambda_k}{2}) + C\lambda_k^3 \sinh(\frac{\lambda_k}{2}) = 0$
+剪力为零： $X_k'''(0.5) = A\lambda_k^3 \sin(\frac{\lambda_k}{2}) + C\lambda_k^3 \sinh(\frac{\lambda_k}{2}) = 0$
 
 代入 $C$ 消去 $A\lambda_k^3$：
 
@@ -97,21 +97,21 @@ $$
 
 ### 2.3 反对称模（$i = 2, 4, 6, \dots$，即 k 为奇数索引）
 
-反对称模为奇函数，$A = C = 0$：
+反对称模为奇函数， $A = C = 0$ ：
 
 $$
 X_k(x) = B \sin(\mu_k x) + D \sinh(\mu_k x)
 $$
 
-弯矩为零：$X_k''(0.5) = -B\mu_k^2 \sin(\frac{\mu_k}{2}) + D\mu_k^2 \sinh(\frac{\mu_k}{2}) = 0$
+弯矩为零： $X_k''(0.5) = -B\mu_k^2 \sin(\frac{\mu_k}{2}) + D\mu_k^2 \sinh(\frac{\mu_k}{2}) = 0$
 
 $$
 \Rightarrow \quad D = B \cdot \frac{\sin(\mu_k / 2)}{\sinh(\mu_k / 2)}
 $$
 
-剪力为零：$X_k'''(0.5) = -B\mu_k^3 \cos(\frac{\mu_k}{2}) + D\mu_k^3 \cosh(\frac{\mu_k}{2}) = 0$
+剪力为零： $X_k'''(0.5) = -B\mu_k^3 \cos(\frac{\mu_k}{2}) + D\mu_k^3 \cosh(\frac{\mu_k}{2}) = 0$
 
-代入 $D$ 消去 $B\mu_k^3$：
+代入 $D$ 消去 $B\mu_k^3$ ：
 
 $$
 -\cos\!\left(\frac{\mu_k}{2}\right) + \frac{\sin(\mu_k/2)}{\sinh(\mu_k/2)} \cdot \cosh\!\left(\frac{\mu_k}{2}\right) = 0
@@ -123,13 +123,13 @@ $$
 \tan\!\left(\frac{\mu}{2}\right) - \tanh\!\left(\frac{\mu}{2}\right) = 0
 $$
 
-取 $B = 1$，得：
+取 $B = 1$ ，得：
 
 $$
 \boxed{X_k(x) = \sin(\mu_k x) + C_k \cdot \sinh(\mu_k x)}
 $$
 
-其中 $\displaystyle C_k = \frac{\sin(\mu_k / 2)}{\sinh(\mu_k / 2)}$。
+其中 $\displaystyle C_k = \frac{\sin(\mu_k / 2)}{\sinh(\mu_k / 2)}$ 。
 
 **导数**：
 
@@ -154,31 +154,31 @@ $$
 | 11 | 对称 | 36.12832 | −1.00000 |
 | 12 | 反对称 | 39.26991 | −1.00000 |
 
-高阶近似：$\lambda_k \approx (2k+1)\pi/2$（对称），$\mu_k \approx (2k+3)\pi/2$（反对称），$C_k \approx -1$。
+高阶近似： $\lambda_k \approx (2k+1)\pi/2$ （对称）， $\mu_k \approx (2k+3)\pi/2$ （反对称）， $C_k \approx -1$ 。
 
 ### 2.5 牛顿迭代
 
 本征值无闭式解，使用牛顿法数值求解。
 
-**对称**：$f(\lambda) = \tan(\lambda/2) + \tanh(\lambda/2)$
+**对称**： $f(\lambda) = \tan(\lambda/2) + \tanh(\lambda/2)$
 
 $$
-f'(\lambda) = \frac{1}{2}\left[ \sec^2\!\left(\frac{\lambda}{2}\right) + \operatorname{sech}^2\!\left(\frac{\lambda}{2}\right) \right]
+f'(\lambda) = \frac{1}{2}\left[ \sec^2\!\left(\frac{\lambda}{2}\right) + \text{sech}^2\!\left(\frac{\lambda}{2}\right) \right]
 $$
 
-初值 $\lambda^{(0)} = (4k-1)\pi/2$（$k = 1, 2, \dots$），迭代：
+初值 $\lambda^{(0)} = (4k-1)\pi/2$（$k = 1, 2, \dots$） ，迭代：
 
 $$
 \lambda^{(n+1)} = \lambda^{(n)} - \frac{f(\lambda^{(n)})}{f'(\lambda^{(n)})}
 $$
 
-**反对称**：$f(\mu) = \tan(\mu/2) - \tanh(\mu/2)$
+**反对称**： $f(\mu) = \tan(\mu/2) - \tanh(\mu/2)$
 
 $$
-f'(\mu) = \frac{1}{2}\left[ \sec^2\!\left(\frac{\mu}{2}\right) - \operatorname{sech}^2\!\left(\frac{\mu}{2}\right) \right]
+f'(\mu) = \frac{1}{2}\left[ \sec^2\!\left(\frac{\mu}{2}\right) - \text{sech}^2\!\left(\frac{\mu}{2}\right) \right]
 $$
 
-初值 $\mu^{(0)} = (4k-3)\pi/2$（$k = 1, 2, \dots$），迭代同上。
+初值 $\mu^{(0)} = (4k-3)\pi/2 (k = 1, 2, \dots)$ ，迭代同上。
 
 5 次迭代即可收敛至机器精度。
 
@@ -209,7 +209,7 @@ $$
 f_{ij} \propto \lambda_i^2 + \lambda_j^2
 $$
 
-其中 $\lambda_i$ 为第 $i$ 阶梁模的本征值（对称模和反对称模统一记为 $\lambda$）。
+其中 $\lambda_i$ 为第 $i$ 阶梁模的本征值（对称模和反对称模统一记为 $\lambda$ ）。
 
 本实现按此关系对本征模排序，低 $f$ 对应低阶简单图案，高 $f$ 对应高阶复杂图案。
 
@@ -231,7 +231,7 @@ $$
 
 ### 4.1 梁函数梯度
 
-对称模 $(k$ 偶 $)$：
+对称模 $(k$ 偶 $)$ ：
 
 $$
 \begin{aligned}
@@ -240,7 +240,7 @@ X_k'(x) &= -\lambda_k \sin(\lambda_k x) + C_k \lambda_k \sinh(\lambda_k x)
 \end{aligned}
 $$
 
-反对称模 $(k$ 奇 $)$：
+反对称模 $(k$ 奇 $)$ ：
 
 $$
 \begin{aligned}
@@ -264,7 +264,7 @@ $$
 \end{aligned}
 $$
 
-带缩放 $z$（zoom），坐标变换 $cx = (u_x - 0.5) \cdot z$：
+带缩放 $z$ （zoom），坐标变换 $cx = (u_x - 0.5) \cdot z$ ：
 
 $$
 \frac{\partial\Psi}{\partial u_x} = z \cdot \frac{\partial\Psi}{\partial(cx)}
@@ -278,16 +278,16 @@ $$
 
 **每帧更新的物理规则**：
 
-1. 计算局部振动幅度：$\text{vib} = |\Psi(p_x, p_y)|$
-2. 随机跳跃：$\Delta p_{\text{rand}} = \xi \cdot \text{vib} \cdot S$（$\xi$ 为单位随机向量，$S$ = `step_scale`）
-3. 梯度漂移：$\Delta p_{\text{drift}} = -\operatorname{sgn}(\Psi) \cdot \nabla\Psi \cdot D \cdot \Delta t \cdot \text{vib}$（$D$ = `drift_speed`）
-4. 边界反射：$p \leftarrow \text{reflect}(p)$
+1. 计算局部振动幅度： $\text{vib} = |\Psi(p_x, p_y)|$
+2. 随机跳跃： $\Delta p_{\text{rand}} = \xi \cdot \text{vib} \cdot S$（$\xi$ 为单位随机向量，$S$ = `step_scale`）
+3. 梯度漂移： $\Delta p_{\text{drift}} = -\text{sgn}(\Psi) \cdot \nabla\Psi \cdot D \cdot \Delta t \cdot \text{vib}$ （ $D$ = `drift_speed`）
+4. 边界反射： $p \leftarrow \text{reflect}(p)$
 
 **漂移方向原理**：节线在 $\Psi = 0$ 处，梯度 $\nabla\Psi$ 指向 $\Psi$ 增大的方向。
 
 - $\Psi > 0$ 的区域：粒子需向 $\Psi$ 减小方向移动 → $-\nabla\Psi$
 - $\Psi < 0$ 的区域：粒子需向 $\Psi$ 增大方向移动 → $+\nabla\Psi$
-- 统一表达式：$-\operatorname{sgn}(\Psi) \cdot \nabla\Psi$
+- 统一表达式：$-\text{sgn}(\Psi) \cdot \nabla\Psi$
 
 ---
 
